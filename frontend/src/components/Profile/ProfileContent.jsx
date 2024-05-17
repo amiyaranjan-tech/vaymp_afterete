@@ -1115,7 +1115,7 @@ const ProfileContent = ({ active }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ml-5">
       {/* profile */}
       {active === 1 && (
         <>

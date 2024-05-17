@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   AiOutlineArrowRight,
@@ -26,22 +25,21 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getAllOrdersOfUser } from "../redux/actions/order";
+import Header from "../components/Layout/Header";
+import Footer from "../components/Layout/Footer";
 // import AllOrdersComponent from '../Shop/AllOrders';
 
-
-
-
 const AllOrders = () => {
-    
     const { user } = useSelector((state) => state.user);
     const { orders } = useSelector((state) => state.order);
     const {allProducts,isLoading} = useSelector((state) => state.products);
   
     const dispatch = useDispatch();
-  console.log("orders",orders,user)
+  
     useEffect(() => {
       dispatch(getAllOrdersOfUser(user._id));
     }, [dispatch, user._id]);
+  
   
     const columns = [
       { 
@@ -55,16 +53,23 @@ const AllOrders = () => {
               <img src={params.value} alt="Product" style={{ width: 50, height: 50 }} />
             </Link>
           );
-        }
+        },
+        // hide: true, // initially hide this column
+        // hideSM: false, // hide for small screens
+        // hideMD: false, // hide for medium screens
       },
-      { field: "name", headerName: "Name", minWidth: 180, flex: 1.4 ,
+      { field: "name", headerName: "Name", minWidth: 180, flex: 1.4,
       renderCell: (params) => {
         return (
+  
           <Link to={`/product/${params.id}`}>
             {params.value}
           </Link>
         );
-      }
+      },
+      // hide: true, // initially hide this column
+      // hideSM: false, // hide for small screens
+      // hideMD: false, // hide for medium screens
     },
       {
         field: "status",
@@ -76,6 +81,9 @@ const AllOrders = () => {
             ? "greenColor"
             : "redColor";
         },
+        // hide: true, // initially hide this column
+        // hideSM: false, // hide for small screens
+        // hideMD: false, // hide for medium screens
       },
       {
         field: "itemsQty",
@@ -83,6 +91,10 @@ const AllOrders = () => {
         type: "number",
         minWidth: 130,
         flex: 0.7,
+        // hide: true, // initially hide this column
+        // hideSM: false, // hide for small screens
+        // hideMD: false, // hide for medium screens
+       
       },
   
       {
@@ -91,6 +103,9 @@ const AllOrders = () => {
         type: "number",
         minWidth: 130,
         flex: 0.8,
+        // hide: true, // initially hide this column
+        // hideSM: false, // hide for small screens
+        // hideMD: false, // hide for medium screens
       },
   
       {
@@ -108,36 +123,64 @@ const AllOrders = () => {
                   <AiOutlineArrowRight size={20} />
                 </Button>
               </Link>
+             
             </>
           );
         },
+        // hide: true, // initially hide this column
+        // hideSM: false, // hide for small screens
+        // hideMD: false, // hide for medium screens
       },
     ];
-  
+    
     const row = [];
+  
+  
   
     orders &&
       orders.forEach((item) => {
         // console.log(item.cart[0].images[0].url)
-        console.log()
         row.push({
           id: item._id,
          image: item.cart[0].images[0].url,
          name: item.cart[0].name,
-          itemsQty: item.cart.length,
-          total: "Rs$" + item.totalPrice,
+        itemsQty: item.cart.length,
+          total: "Rs" + item.totalPrice,
           status: item.status,
         });
       });
   
+    // return (
+    //   <div className="">
+      
+    //   <div className="pl-8 pt-1">
+        
+    //     <DataGrid
+    //       rows={row}
+    //       columns={columns}
+    //       pageSize={10}
+    //       disableSelectionOnClick
+    //       autoHeight
+    //     />
+    //   </div>
+    //   </div>
+  
+    // );
+  
     return (
-      <div className="">
+      // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <>
+         <Header/>
+        <div className="">
         {orders &&
           orders.map((order) => (
             <OrderCard key={order._id} order={order} />
           ))}
       </div>
+      <Footer/>
+      </>
     );
   };
+  
 
   export default AllOrders;

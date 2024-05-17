@@ -7,7 +7,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
@@ -39,6 +39,9 @@ const Header = ({ activeHeading }) => {
   const { orderId } = useParams();
   const searchInputRef = useRef(null);
   const mobileInputRef = useRef(null);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -402,6 +405,22 @@ const Header = ({ activeHeading }) => {
 
               {/* navbar */}
               <Navbar active={activeHeading} />
+  
+              <div className="flex flex-col">
+              <Link
+                to="/profile"
+                className={` ${isActive('/profile') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+              >
+                Profile
+              </Link>
+              <Link
+                to='/orders'
+                className={` ${isActive('/orders')? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                >
+                Orders
+              </Link>
+               </div>
+
               <div className={`${styles.button} ml-4 !rounded-[4px]`}>
                 <Link to="/shop-create">
                   <h1 className="text-[#fff] flex items-center">
