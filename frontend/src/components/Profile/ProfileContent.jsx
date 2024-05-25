@@ -1331,7 +1331,7 @@ const AllOrders = () => {
        image: item.cart[0].images[0].url,
        name: item.cart[0].name,
         itemsQty: item.cart.length,
-        total: "Rs$" + item.totalPrice,
+        total: "Rs " + item.totalPrice,
         status: item.status,
       });
     });
@@ -1416,7 +1416,7 @@ const AllRefundOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: "Rs " + item.totalPrice,
         status: item.status,
       });
     });
@@ -1501,7 +1501,7 @@ const TrackOrder = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: "Rs " + item.totalPrice,
         status: item.status,
       });
     });

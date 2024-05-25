@@ -226,9 +226,9 @@ const ProductDetails =  ({ data }) => {
     if (isAuthenticated) {
       const groupTitle = data._id + user._id;
       const userId = user._id;
-      const sellerId = data.shop._id;
-      // const sellerId="65fae1d3497be0c126658a67";
-      // const sellerId=data?.cart[0].adminCreated;
+      // const sellerId = data.shop._id;
+      // const sellerId="65f7ce229efb5513e3a0ea1b";
+      const sellerId=data?.cart[0].adminCreated;
       // console.log("data.adminCreated",data?.cart[0].adminCreated)
 
       await axios
@@ -509,6 +509,7 @@ const ProductDetails =  ({ data }) => {
               </div>
             </div>
           </div>
+
           <ProductDetailsInfo
             data={data}
             products={products}
@@ -537,7 +538,7 @@ const ProductDetailsInfo = ({
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] "
             }
             onClick={() => setActive(1)}
           >
@@ -576,7 +577,7 @@ const ProductDetailsInfo = ({
       </div>
       {active === 1 ? (
         <>
-          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
+          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line overflow-hidden break-words">
             {data.description}
           </p>
         </>
@@ -664,3 +665,5 @@ const ProductDetailsInfo = ({
 };
 
 export default ProductDetails;
+
+

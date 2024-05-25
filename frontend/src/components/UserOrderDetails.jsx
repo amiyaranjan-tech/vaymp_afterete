@@ -69,9 +69,9 @@ console.log("selectedItem,,,,,,,,,,,,,,,,,,",selectedItem)
       const groupTitle = id +" "+data?.cart[0].name;
       const userId = user._id;
       //const sellerId = data.shop._id;
-      // const sellerId="65fae1d3497be0c126658a67";
+      // const sellerId="65f7ce229efb5513e3a0ea1b";
       const sellerId=data?.cart[0].adminCreated;
-      console.log("order kr do",data?.cart[0].adminCreated)
+      // console.log("order kr do",data?.cart[0].adminCreated)
       await axios
         .post(`${server}/conversation/create-new-conversation`, {
           groupTitle,
@@ -121,7 +121,7 @@ console.log("selectedItem,,,,,,,,,,,,,,,,,,",selectedItem)
             <div className="w-full">
               <h5 className="pl-3 text-[20px]">{item.name}</h5>
               <h5 className="pl-3 text-[20px] text-[#00000091]">
-                US${item.discountPrice} x {item.qty}
+              ₹{item.discountPrice} x {item.qty}
               </h5>
             </div>
             {!item.isReviewed && data?.status === "Delivered" ?  <div
@@ -160,7 +160,7 @@ console.log("selectedItem,,,,,,,,,,,,,,,,,,",selectedItem)
               <div>
                 <div className="pl-3 text-[20px]">{selectedItem?.name}</div>
                 <h4 className="pl-3 text-[20px]">
-                  US${selectedItem?.discountPrice} x {selectedItem?.qty}
+                ₹{selectedItem?.discountPrice} x {selectedItem?.qty}
                 </h4>
               </div>
             </div>
@@ -224,7 +224,7 @@ console.log("selectedItem,,,,,,,,,,,,,,,,,,",selectedItem)
 
       <div className="border-t w-full text-right">
         <h5 className="pt-3 text-[18px]">
-          Total Price: <strong>US${data?.totalPrice}</strong>
+          Total Price: <strong>₹{data?.totalPrice}</strong>
         </h5>
       </div>
       <br />
@@ -263,7 +263,7 @@ console.log("selectedItem,,,,,,,,,,,,,,,,,,",selectedItem)
                   onClick={handleMessageSubmit}
                 >
                   <span className="text-[#fff] flex items-center">
-                    Send Message9 
+                    Send Message
                   </span>
                 </div>
       {/* <Link to="/">

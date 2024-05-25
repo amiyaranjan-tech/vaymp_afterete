@@ -30,7 +30,7 @@ const Footer = () => {
         <ul className="px-5 text-center sm:text-start flex sm:block flex-col items-center">
         <h1 style={{ color: '#142337', fontSize: '44px', fontWeight: 'bold' }}>vaymp</h1>
           <br />
-          <p>The home and elements needeed to create beatiful products.</p>
+          <p>All your city stores at your fingertips.</p>
           <div className="flex items-center mt-[15px]">
             <AiFillFacebook size={25} className="cursor-pointer" />
             <AiOutlineTwitter
@@ -101,10 +101,10 @@ const Footer = () => {
         <span>© Vaymp. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
         <div className="sm:block flex items-center justify-center w-full">
-          <img
+          {/* <img
             src="https://hamart-shop.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffooter-payment.a37c49ac.png&w=640&q=75"
             alt=""
-          />
+          /> */}
         </div>
       </div>
     </div>

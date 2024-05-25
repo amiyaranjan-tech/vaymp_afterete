@@ -217,7 +217,7 @@ const UserInbox = () => {
         <>
           <Header />
           <h1 className="text-center text-[30px] py-3 font-Poppins">
-            All Messages1
+            All Messages
           </h1>
           {/* All messages list */}
           {conversations &&
