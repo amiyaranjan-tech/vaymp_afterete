@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 
 
+
 import { getAllProductsShop } from "../../redux/actions/product";
 import {  updateNewStockNotification } from "../../redux/actions/sellers";
 
@@ -15,10 +16,11 @@ import { DataGrid } from "@material-ui/data-grid";
 import { useParams } from "react-router-dom";
 
 const DashboardHero = () => {
-  const { seller } = useSelector((state) => state.seller);
+ 
 
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.order);
+  const { seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
   const { id } = useParams();
   // const seller=id;
@@ -46,9 +48,10 @@ const DashboardHero = () => {
 
 
   useEffect(() => {
-    dispatch(getAllOrdersOfShop(id));
-    dispatch(getAllProductsShop(id));
-  }, [dispatch, id]); // Include id in the dependency array
+    dispatch(getAllOrdersOfShop(seller._id));
+    dispatch(getAllProductsShop(seller._id));
+ }, [dispatch]);
+  const availableBalance = seller?.availableBalance.toFixed(2);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -119,6 +122,7 @@ const DashboardHero = () => {
       >
         {showNewStock ? "No New Stock" : "New Stock"}
       </button>
+     <br></br>
       <div className="w-full block 800px:flex items-center justify-between">
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
           <div className="flex items-center">
@@ -134,9 +138,9 @@ const DashboardHero = () => {
               <span className="text-[16px]">(with 10% service charge)</span>
             </h3>
           </div>
-          {/* <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">${availableBalance}</h5> */}
+          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs.{availableBalance}</h5>
           <Link to="/dashboard-withdraw-money">
-            <h5 className="pt-4 pl-[2] text-[#077f9c]">Withdraw Money</h5>
+            <h5 className="pt-4 pl-[2] text-[#077f9c]">Total Income</h5>
           </Link>
         </div>
 

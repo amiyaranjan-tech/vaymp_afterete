@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle, AiOutlineClose,AiOutlineMinusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -5,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { createevent } from "../../redux/actions/event";
-import { Circles } from "react-loader-spinner";
+import { Hourglass } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 
 const CreateEvent = () => {
@@ -174,7 +175,7 @@ const CreateEvent = () => {
     console.log("sdflllsd")
     try {
       await dispatch(createevent(data));
-      toast.success("Event created successfully!");
+      // toast.success("Event created successfully!");
       // navigate("/dashboard-events");
       window.location.reload();
       console.log("sdfsd")
@@ -416,7 +417,7 @@ const CreateEvent = () => {
                 alignItems: "center",
               }}
             >
-                <Circles
+                <Hourglass
                       height={50}
                       width={50}
                       color="cyan"
