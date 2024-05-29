@@ -57,7 +57,7 @@ const Singup = () => {
     setter(e.target.value);
     setError(""); 
   };
-
+console.log("hihihii",error)
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -68,9 +68,6 @@ const Singup = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
-          {error && ( 
-              <div className="text-red-600 text-sm">{error}</div>
-            )}
             <div>
               <label
                 htmlFor="email"
@@ -113,6 +110,10 @@ const Singup = () => {
                   onChange={handleInputChange(setEmail)}  // name m jo onchange laga hai wo aur ye same kaam kar raha this is shotcut that is in detail for understanding.
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
+                 {error === "User already exists!" && (
+                  <div className="text-red-600 text-sm mt-1">{error}</div>
+                  
+                )}
               </div>
             </div>
 
@@ -134,6 +135,7 @@ const Singup = () => {
                   onChange={handleInputChange(setPassword)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
+                
                 {visible ? (
                   <AiOutlineEye
                     className="absolute right-2 top-2 cursor-pointer"
@@ -181,9 +183,16 @@ const Singup = () => {
                     className="sr-only"
                   />
                 </label>
+               
               </div>
+              {error === "Missing required parameter - file" && (
+                  <div className="text-red-600 text-sm mt-1">{error}</div>
+                  
+                )}
             </div>
-
+            {/* {error && ( 
+              <div className="text-red-600 text-sm">{error}</div>
+            )} */}
             <div>
             <div>
               {loading ? (

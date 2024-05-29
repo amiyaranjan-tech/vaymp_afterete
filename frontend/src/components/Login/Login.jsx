@@ -13,12 +13,12 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const [error, setError] = useState(""); // Add a state for error message
+  const [error, setError] = useState({ message: "", field: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Clear any previous error messages
+    setError({ message: "", field: "" });
 
     try {
       const res = await axios.post(
@@ -33,15 +33,17 @@ const Login = () => {
       navigate("/");
       window.location.reload(true);
     } catch (err) {
-      setError(err.response.data.message); // Set the error message
+      setError({
+        message: err.response.data.message,
+        field: err.response.data.field,
+      });
       setLoading(false);
     }
   };
 
-  // Function to handle input change and reset error state
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
-    setError(""); // Clear error message when user starts typing
+    setError({ message: "", field: "" });
   };
 
   return (
@@ -54,9 +56,6 @@ const Login = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {error && ( // Conditionally render the error message
-              <div className="text-red-600 text-sm">{error}</div>
-            )}
             <div>
               <label
                 htmlFor="email"
@@ -72,8 +71,13 @@ const Login = () => {
                   required
                   value={email}
                   onChange={handleInputChange(setEmail)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    error.field === "email" ? "border-red-500" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 />
+                {error.message === "User doesn't exists!" && (
+                  <div className="text-red-600 text-sm mt-1">{error.message}</div>
+                )}
               </div>
             </div>
             <div>
@@ -91,8 +95,13 @@ const Login = () => {
                   required
                   value={password}
                   onChange={handleInputChange(setPassword)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    error.field === "password" ? "border-red-500" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 />
+                {error.message === "Please provide the correct password!" && (
+                  <div className="text-red-600 text-sm mt-1">{error.message}</div>
+                )}
                 {visible ? (
                   <AiOutlineEye
                     className="absolute right-2 top-2 cursor-pointer"
@@ -132,6 +141,9 @@ const Login = () => {
                 </a>
               </div>
             </div>
+            {error.message === "Check your Internet Connection" && ( // Conditionally render the error message
+              <div className="text-red-600 text-sm">{error.message}</div>
+            )}
             <div>
               {loading ? (
                 <div
