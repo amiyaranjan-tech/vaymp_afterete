@@ -190,9 +190,9 @@ console.log("hihihii",error)
                   
                 )}
             </div>
-            {/* {error && ( 
+            {(error !=="User already exists!") && (error !=="Missing required parameter - file")  && ( 
               <div className="text-red-600 text-sm">{error}</div>
-            )} */}
+            )}
             <div>
             <div>
               {loading ? (

@@ -137,7 +137,10 @@ const ShopLogin = () => {
                 </a>
               </div>
             </div>
-            {error && ( 
+             {/* {error && ( 
+              <div className="text-red-600 text-sm">{error}</div>
+            )}  */}
+             {(error !=="User doesn't exists!") && (error !=="Please provide the correct Password")  && ( 
               <div className="text-red-600 text-sm">{error}</div>
             )}
             <div>
