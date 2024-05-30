@@ -113,6 +113,10 @@ const productSchema = new mongoose.Schema({
   ratings: {
     type: Number,
   },
+  subCategory: {
+    type: String,
+    required: [true, "Please enter your product category!"],
+  },
   adminCreated:{
     type: String,
     required: true,

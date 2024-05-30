@@ -36,9 +36,9 @@ router.post(
       
 
       // Validate other data fields here
-      const { name, description, category,ShopPrice,originalPrice, discountPrice, stock,gender,color } = req.body;
+      const { name, description, category,ShopPrice,originalPrice,subCategory, discountPrice, stock,gender,color } = req.body;
       // console.log(req.body)
-      if (!name || !description || !category  ||!ShopPrice||!originalPrice ||  !discountPrice || !stock || !gender || !color|| !images) {
+      if (!name || !description || !category  ||!ShopPrice||!originalPrice ||  !discountPrice || !stock || !gender || !color|| !images ||!subCategory ) {
         console.log("object1111",originalPrice)
         
         return next(new ErrorHandler("Invalid product data. Please provide all required fields.", 400));
@@ -185,6 +185,9 @@ if (req.query.sortBy === "priceHighToLow") {
       }
       if (req.query.color) {
         filters.color = { $in: req.query.color.split(',') };
+      }
+      if (req.query.subCategory) {
+        filters.subCategory = { $in: req.query.subCategory.split(',') };
       }
       if (req.query.fit) {
         filters.fit = { $in: req.query.fit.split(',') };

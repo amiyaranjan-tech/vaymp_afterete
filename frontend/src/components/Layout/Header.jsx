@@ -43,6 +43,7 @@ const Header = ({ activeHeading }) => {
   const searchInputRef = useRef(null);
   const mobileInputRef = useRef(null);
   const location = useLocation();
+  
  
 
   const isActive = (path) => location.pathname === path;
@@ -70,7 +71,7 @@ const Header = ({ activeHeading }) => {
         let p1 =
           product.name.toLowerCase().includes(term.toLowerCase()) ||
           product.category.toLowerCase().includes(term.toLowerCase()) ||
-          product.description.toLowerCase().includes(term.toLowerCase()) ||
+          product.occasion.toLowerCase().includes(term.toLowerCase()) ||
           product.tags.toLowerCase().includes(term.toLowerCase());
         return p1;
       });
@@ -91,6 +92,22 @@ const Header = ({ activeHeading }) => {
         return p1;
       });
     mobileSetSearchData(filteredProducts);
+  };
+
+  const handleSearchSubmit = (e) => {
+    if (e.key === "Enter" && searchTerm) {
+      navigate(`/search/${searchTerm}`);
+      setSearchTerm("");
+      setSearchData(null);
+    }
+  };
+
+  const handleMobileSearchSubmit = (e) => {
+    if (e.key === "Enter" && mobileSearchTerm) {
+      navigate(`/search/${mobileSearchTerm}`);
+      mobileSetSearchTerm("");
+      mobileSetSearchData(null);
+    }
   };
 
   useEffect(() => {
@@ -170,6 +187,7 @@ const Header = ({ activeHeading }) => {
                 placeholder="Search Product..."
                 value={searchTerm}
                 onChange={handleSearchChange}
+                onKeyDown={handleSearchSubmit}
                 className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
               />
               <AiOutlineSearch
@@ -531,6 +549,7 @@ const Header = ({ activeHeading }) => {
             placeholder="Search Product..."
             value={mobileSearchTerm}
             onChange={handlemobileSearchChange}
+            onKeyDown={handleMobileSearchSubmit}
             className="h-[40px] w-full px-2 border-[#3957db] border-[1px] rounded"
           />
           <AiOutlineSearch

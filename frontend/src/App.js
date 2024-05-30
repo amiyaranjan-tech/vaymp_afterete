@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SearchResults from "./pages/SearchResults.jsx";
 import {
   LoginPage,
   SignupPage,
@@ -121,6 +122,12 @@ const App = () => {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/shop" element={<ShopsPage />} />
 
+
+        <Route 
+        path="/search/:query" 
+        element={<SearchResults />}
+         />
+         
         <Route
           path="/checkout"
           element={
