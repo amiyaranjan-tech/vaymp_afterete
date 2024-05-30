@@ -94,11 +94,85 @@
 
 
 
+// import React from "react";
+// import { useParams } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
+// import { AiOutlineEye } from "react-icons/ai";
+// import Header from "../components/Layout/Header";
+// import Footer from "../components/Layout/Footer";
+// import ProductCard from "../components/Route/ProductCard/ProductCard";
+// import Loader from "../components/Layout/Loader";
+// import styles from "../styles/styles";
+
+// const SearchResults = () => {
+//   const { query } = useParams();
+//   console.log("query",query)
+//   const { allProducts, isLoading } = useSelector((state) => state.products);
+
+
+
+//   const filteredProducts =
+//     allProducts &&
+//     allProducts.filter((product) =>
+//       product.name.toLowerCase().includes(query.toLowerCase()) ||
+//       product.occasion.toLowerCase().includes(query.toLowerCase()) ||
+//       product?.tags?.toLowerCase().includes(query.toLowerCase())
+//     );
+
+// console.log("filteredProducts",filteredProducts)
+ 
+
+//   return (
+//     <>
+//     {isLoading ? (
+//       <Loader />
+//     ) : (
+//       <div>
+//         <Header activeHeading={3} />
+//      {/* Render product cards based on filtered data */}
+//      <div className={`${styles.section}`}>
+//      <div className="pt-2 hidden md:block">
+//          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12 ">  
+//            {/* this is default for big screens */}
+//            {filteredProducts.map((i, index) => (
+//              <ProductCard data={i} key={index} />
+//            ))}
+//          </div>
+//          {filteredProducts.length === 0 ? (
+//            <h1 className="text-center w-full pb-[100px] text-[20px]">
+//              No products found!
+//            </h1>
+//          ) : null}
+//        </div>
+//        <div className="pt-2 md:hidden">
+//        <div className="grid grid-cols-2 gap-[25px] md:grid-cols-2 md:gap-[25px] mb-12 "> 
+//            {/* this is for small screens */}
+//            {filteredProducts.map((i, index) => (
+//              <ProductCard data={i} key={index} />
+//            ))}
+//          </div>
+//          {filteredProducts.length === 0 ? (
+//            <h1 className="text-center w-full pb-[100px] text-[20px]">
+//              No products found!
+//            </h1>
+//          ) : null}
+//        </div>
+//      </div>
+//      <Footer />
+//    </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default SearchResults;
+
+
+
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { AiOutlineEye } from "react-icons/ai";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import ProductCard from "../components/Route/ProductCard/ProductCard";
@@ -107,64 +181,77 @@ import styles from "../styles/styles";
 
 const SearchResults = () => {
   const { query } = useParams();
-  console.log("query",query)
   const { allProducts, isLoading } = useSelector((state) => state.products);
 
+  const words = query.toLowerCase().split(" ");
 
+  const filterByWord = (product, word) => {
+    const productProperties = [
+      product.category,
+      product.subcategory,
+      product.size,
+      product.color,
+      product.fabric,
+      product.occasion,
+      product.fit,
+      product.gender,
+      product.sleeveType,
+      product.neckType,
+      product.name,
+      product.tags,
+      product.brand,
+    ];
 
-  const filteredProducts =
-    allProducts &&
-    allProducts.filter((product) =>
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.occasion.toLowerCase().includes(query.toLowerCase()) ||
-      product.tags.toLowerCase().includes(query.toLowerCase())
-    );
+    return productProperties.some(prop => prop && prop.toLowerCase().includes(word));
+  };
 
-console.log("filteredProducts",filteredProducts)
- 
+  const filteredProducts = allProducts && allProducts.filter(product => 
+    words.every(word => filterByWord(product, word))
+  );
 
   return (
     <>
-    {isLoading ? (
-      <Loader />
-    ) : (
-      <div>
-        <Header activeHeading={3} />
-     {/* Render product cards based on filtered data */}
-     <div className={`${styles.section}`}>
-     <div className="pt-2 hidden md:block">
-         <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12 ">  
-           {/* this is default for big screens */}
-           {filteredProducts.map((i, index) => (
-             <ProductCard data={i} key={index} />
-           ))}
-         </div>
-         {filteredProducts.length === 0 ? (
-           <h1 className="text-center w-full pb-[100px] text-[20px]">
-             No products found!
-           </h1>
-         ) : null}
-       </div>
-       <div className="pt-2 md:hidden">
-       <div className="grid grid-cols-2 gap-[25px] md:grid-cols-2 md:gap-[25px] mb-12 "> 
-           {/* this is for small screens */}
-           {filteredProducts.map((i, index) => (
-             <ProductCard data={i} key={index} />
-           ))}
-         </div>
-         {filteredProducts.length === 0 ? (
-           <h1 className="text-center w-full pb-[100px] text-[20px]">
-             No products found!
-           </h1>
-         ) : null}
-       </div>
-     </div>
-     <Footer />
-   </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <Header activeHeading={3} />
+          {/* Render product cards based on filtered data */}
+          <div className={`${styles.section}`}>
+            <div className="pt-2 hidden md:block">
+              <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12">
+                {/* this is default for big screens */}
+                {filteredProducts.map((i, index) => (
+                  <ProductCard data={i} key={index} />
+                ))}
+              </div>
+              {filteredProducts.length === 0 ? (
+                <h1 className="text-center w-full pb-[100px] text-[20px]">
+                  No products found!
+                </h1>
+              ) : null}
+            </div>
+            <div className="pt-2 md:hidden">
+              <div className="grid grid-cols-2 gap-[25px] md:grid-cols-2 md:gap-[25px] mb-12">
+                {/* this is for small screens */}
+                {filteredProducts.map((i, index) => (
+                  <ProductCard data={i} key={index} />
+                ))}
+              </div>
+              {filteredProducts.length === 0 ? (
+                <h1 className="text-center w-full pb-[100px] text-[20px]">
+                  No products found!
+                </h1>
+              ) : null}
+            </div>
+          </div>
+          <Footer />
+        </div>
       )}
     </>
   );
 };
 
 export default SearchResults;
+
 
