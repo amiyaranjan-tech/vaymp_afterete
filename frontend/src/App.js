@@ -128,6 +128,7 @@ const App = () => {
         element={<SearchResults />}
          />
          
+
         <Route
           path="/checkout"
           element={

@@ -19,7 +19,7 @@ import { addTocart, updateTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import axios from "axios";
-// import { BsSortNumericDownAlt } from "react-icons/bs";
+
 
 const ProductDetails =  ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -31,15 +31,10 @@ const ProductDetails =  ({ data }) => {
   const [select, setSelect] = useState(0);
   const [selectedSize, setSelectedSize] = useState(""); // State for selected size
   const [showDescription, setShowDescription] = useState(false);
-//const [adminuser,setadminuser]=useState({});
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // useEffect(async()=>{
-  //   // const res5 = await axios.get(`${server}/user/user-info/65fae1d3497be0c126658a67`)
-  //   const res5 = await axios.get(`${server}/user/user-info/65fae1d3497be0c126658a67`)
-
-  //   setadminuser(res5.data.user)
-  // },[])
+ 
   useEffect(() => {
     dispatch(getAllProductsShop(data && data?.shop._id));
     if (wishlist && wishlist.find((i) => i._id === data?._id)) {
@@ -49,15 +44,7 @@ const ProductDetails =  ({ data }) => {
     }
   }, [data, wishlist, dispatch]);
 
-  // const incrementCount = () => {
-  //   setCount(count + 1);
-  // };
-
-  // const decrementCount = () => {
-  //   if (count > 1) {
-  //     setCount(count - 1);
-  //   }
-  // };
+  
 
   const removeFromWishlistHandler = (data) => {
     setClick(!click);
@@ -110,11 +97,7 @@ const ProductDetails =  ({ data }) => {
       } else {
         console.log("Item not found in newCart array");
       }
-      // newCart.forEach((val1)=>{
-      //   if(val1._id==isItemExists.id){
-      //       val1=newData
-      //   }
-      // })
+     
       try {
         // await updateStockAfterOrderCreation(itemToUpdate);
         dispatch(updateTocart(newCart));
@@ -150,60 +133,7 @@ const ProductDetails =  ({ data }) => {
 
   const addToCartHandler = async (id, selectedSize, count) => {
     console.log("mycart777", id);
-    // const isItemExists =
-    //   cart &&
-    //   cart.find((i) => {
-    //     // console.log("iiiiiiiiii", i);
-    //     const m1 = i.stock.find((ite) => {
-    //       return ite._id == id;
-    //     });
-    //     console.log("m1m1", m1);
-    //     if (m1 == undefined) {
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //     // return i._id === id;
-    //   });
-    // console.log("klklkl", isItemExists);
-    // //console.log("iiiidddddd", stock[0].size._id);
-    // if (isItemExists && false) {
-    //   toast.error("Item already in cart!");
-    // } else {
-    //   if (selectedSize === "") {
-    //     toast.error("Please select a size!");
-    //   } else {
-    //     const selectedProduct = data.stock.find(
-    //       (item) => item.size === selectedSize
-    //     );
-    //     if (!selectedProduct || selectedProduct.quantity < 1) {
-    //       toast.error("Selected size not available or out of stock!");
-    //     } else {
-    //       const updatedStock = data.stock.map((item) =>
-    //         item.size === selectedSize
-    //           ? { ...item, quantity: item.quantity - count }
-    //           : item
-    //       );
-    //       const cartData = {
-    //         ...data,
-    //         stock: updatedStock,
-    //         qty: count,
-    //         size: selectedSize
-    //       };
-    //       console.log("cartDatacartData", cartData);
-    //       console.log("stock", updatedStock);
-
-    //       try {
-    //         // await updateStockAfterOrderCreation(itemToUpdate);
-    //         dispatch(addTocart(cartData));
-    //         toast.success("Item added to cart successfully!");
-    //       } catch (error) {
-    //         console.error("Error updating stock:", error.message);
-    //         toast.error("Failed to add item to cart!");
-    //       }
-    //     }
-    //   }
-    // }
+   
   };
 
   const totalReviewsLength =
@@ -258,7 +188,7 @@ const ProductDetails =  ({ data }) => {
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=""
-                  className="w-full sm:w-[80%] mx-auto border border-gray-300 m-3 p-1 rounded transition-transform duration-300 hover:scale-150 hover:cursor-zoom-in"
+                  className="w-full sm:w-[80%] mx-auto border border-gray-300 m-3 p-1 rounded"
                   style={{ transitionDelay: "800ms" }}
                 />
                 <div className="w-full flex p-2 py-0 lg:pl-12">
@@ -341,7 +271,7 @@ const ProductDetails =  ({ data }) => {
                                   setSelectedSize(item.size);
                                 }
                               }}
-                              // disabled={!isAvailable} // Optionally, you can add this to disable the button if the size is not available
+                              
                             >
                               {item.size}
                             </button>
@@ -475,11 +405,7 @@ const ProductDetails =  ({ data }) => {
                     />
                   </Link>
                   
-                   {/*<img
-                      src={`${adminuser?.avatar?.url}`}
-                      alt=""
-                      className="w-[50px] h-[50px] rounded-full mr-2"
-                />*/}
+                  
                  
                   <div className="pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
@@ -488,22 +414,13 @@ const ProductDetails =  ({ data }) => {
                       </h3>
                     </Link>
                    
-                      {/* <h3 className={`${styles.shop_name} pb-1 pt-1`}>
-                        {adminuser?.name}
-                      </h3> */}
+                     
                     
                     <h5 className="pb-3 text-[15px]">
                       ({averageRating}/5) Ratings
                     </h5>
                   </div>
-                  {/* <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
-                    onClick={handleMessageSubmit}
-                  >
-                    <span className="text-white flex items-center">
-                      Send Message1 <AiOutlineMessage className="ml-1" />
-                    </span>
-                    </div> */}
+                 
                   </div>
                 </div>
               </div>
